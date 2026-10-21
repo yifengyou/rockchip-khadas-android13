@@ -14,38 +14,39 @@ chmod +x ${WORKDIR}/RKTools/linux/Linux_Pack_Firmware/rockdev/rkImageMaker
 mkdir -p ${PACK_TOOL_DIR}/rockdev/Image/
 cd ${PACK_TOOL_DIR}/rockdev/Image/
 if [ ! -f MiniLoaderAll.bin ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_artifacts/MiniLoaderAll.bin
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/android13_base_image/MiniLoaderAll.bin
 fi
 if [ ! -f parameter.txt ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_artifacts/parameter.txt
-fi
-if [ ! -f uboot.img ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_uboot/uboot.img
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/android13_base_image/parameter.txt
 fi
 if [ ! -f misc.img ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_artifacts/misc.img
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/android13_base_image/misc.img
 fi
 if [ ! -f dtbo.img ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_artifacts/dtbo.img
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/android13_base_image/dtbo.img
 fi
 if [ ! -f vbmeta.img ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_artifacts/vbmeta.img
-fi
-if [ ! -f boot.img ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_kernel/boot.img
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/android13_base_image/vbmeta.img
 fi
 if [ ! -f recovery.img ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_artifacts/recovery.img
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/android13_base_image/recovery.img
 fi
 if [ ! -f baseparameter.img ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_artifacts/baseparameter.img
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/android13_base_image/baseparameter.img
 fi
 if [ ! -f super.img ] ; then
-  wget -q -c https://github.com/yifengyou/BDY_G98_RK3588-khadas-android13/releases/download/g98_android13_artifacts/super.img
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/android13_base_image/super.img
 fi
-ls -alh *.img *.bin
+if [ ! -f uboot.img ] ; then
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/bdy_g98_uboot/uboot.img
+fi
+if [ ! -f boot.img ] ; then
+  wget -q -c https://github.com/yifengyou/rockchip-khadas-android13/releases/download/bdy_g98_kernel/boot.img
+fi
+ls -alh
 
 # pack image
+echo "-----------------------------------------------------------------------"
 echo "Make update.img"
 cd ${PACK_TOOL_DIR}/rockdev && ./mkupdate.sh rk3588 Image
 
@@ -56,5 +57,6 @@ else
     exit 1
 fi
 
+echo "-----------------------------------------------------------------------"
 mv ${PACK_TOOL_DIR}/rockdev/update.img ${OUTPUT_DIR}
 ls -alh ${OUTPUT_DIR}
